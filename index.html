@@ -27,17 +27,17 @@
                     <h2>Input</h2>
                     <span>Ticker Symbol</span>
                     <div class="input-group mb-1">
-                        <input id="ticker" type="text" class="form-control" placeholder="Ticker" aria-label="sticker" aria-describedby="basic-addon2">
+                        <input id="ticker" type="text" class="form-control" placeholder="Ticker" value="GOOG" aria-label="sticker" aria-describedby="basic-addon2">
                     </div>
 
                     <span>Time Horizon</span>
                     
                     <div class="input-group mb-1">
-                        <input type="date" class="form-control" id="start"/>
-                        <input type="date" class="form-control" id="end"/>
+                        <input type="date" class="form-control" id="start" value="2022-01-01"/>
+                        <input type="date" class="form-control" id="end" value="2022-06-09"/>
                     </div>
 
-                    <button onclick="fetchStock">Load Chart</button>
+                    <button onclick="fetchStock()">Load Chart</button>
 
                     <span>Investor</span>
                     
