@@ -19,21 +19,25 @@ function fetchStock() {
                 var initial_investment_1 = 12000;
                 var value = data['values'];
 
+                var dict = {}
+
                 console.log(data);
 
                 length = value.length - 1
 
                 end_price = value[0]['close'];
-                // console.log(end_price);
                 open_price = value[length]['open'];
-                // console.log(open_price);
+                open_date = value[length]['datetime'];
+
+                dict[open_date] = open_price;
+                
 
                 stock_gain = end_price - open_price;
                 percent_gain = stock_gain / open_price;
 
                 final_amount = initial_investment_1 * (1 + percent_gain);
                 console.log(final_amount);
-                console.log('-------------------------------------');
+                console.log(dict);
 
                 // Strategy 2: Invest 1,000 if stock drops by 5% previous
                 var initial_investment_2 = 12000;
@@ -41,7 +45,7 @@ function fetchStock() {
                 var amount_in_investments = 0;
                 var value = data['values'];
 
-                buy_values = [];
+                buy_values = {};
                 
                 length = value.length - 1;
 
@@ -59,7 +63,7 @@ function fetchStock() {
                         amount_in_investments += investment_amount;
 
                         // add the price of the stock AT THE TIME to a list
-                        buy_values.push(value[i]['open']);
+                        buy_values[value[i]['datetime']] = value[i]['open'];
                     }
                 }
                 // today's
@@ -67,13 +71,14 @@ function fetchStock() {
 
                 // calculate how much we have earned on our investments
                 investment_gain = 0;
-                for (let i = 0; i < buy_values.length; i++) {
-                    investment_gain += ((end_price - buy_values[i]) / buy_values[i]) * investment_amount;
+                for (var key in buy_values) {
+                    investment_gain += ((end_price - buy_values[key]) / buy_values[key]) * investment_amount;
                 }
                 
                 // add how much in savings, how much in investments initially, how much we have gained from investment
                 final_amount = initial_investment_2 + amount_in_investments + investment_gain;
                 console.log(final_amount);
+                console.log(buy_values);
 
                 console.log('-------------------------------------');
 
@@ -84,7 +89,7 @@ function fetchStock() {
                 var amount_in_investments = 0;
                 var value = data['values'];
 
-                buy_values = [];
+                buy_values = {};
                 
                 length = value.length - 1;
 
@@ -93,7 +98,7 @@ function fetchStock() {
                     // buy at start of every month
                     curr_month = value[i]['datetime'].slice(5, 7);
                     if (prev_month != curr_month) {
-                        buy_values.push(value[i]['open']);
+                        buy_values[value[i]['datetime']] = (value[i]['open']);
                         initial_investment_3 -= investment_amount;
                         amount_in_investments += investment_amount;
 
@@ -105,12 +110,13 @@ function fetchStock() {
 
                 // calculate how much we have earned on our investments
                 investment_gain = 0;
-                for (let i = 0; i < buy_values.length; i++) {
-                    investment_gain += ((end_price - buy_values[i]) / buy_values[i]) * investment_amount;
+                for (var key in buy_values) {
+                    investment_gain += ((end_price - buy_values[key]) / buy_values[key]) * investment_amount;
                 }
 
                 // add how much in savings, how much in investments initially, how much we have gained from investment
                 final_amount = initial_investment_3 + amount_in_investments + investment_gain;
+                console.log(buy_values);
                 console.log(final_amount);
 
                 console.log('-------------------------------------');
