@@ -1,3 +1,12 @@
+var formatter = new Intl.NumberFormat('en-US', {
+    style: 'currency',
+    currency: 'USD',
+  
+    // These options are needed to round to whole numbers if that's what you want.
+    //minimumFractionDigits: 0, // (this suffices for whole numbers, but will print 2500.10 as $2,500.1)
+    //maximumFractionDigits: 0, // (causes 2500.99 to be printed as $2,501)
+  });
+
 function fetchStock() {
     var ticker = 'TSLA';
     var start = '2019-01-01'; 
@@ -19,7 +28,7 @@ function fetchStock() {
                 var description = "_______ is a beginner investor and decides to invest his money and leave it.\n\n";
 
                 var initial_investment_1 = 12000;
-                description += "Starting Amount: " + initial_investment_1 + "\n";
+                description += "Starting Amount: " + formatter.format(initial_investment_1) + "\n";
 
                 var value = data['values'];
 
@@ -42,8 +51,8 @@ function fetchStock() {
 
                 final_amount = initial_investment_1 * (1 + percent_gain);
 
-                description += "Final Amount: " + final_amount + "\n";
-                description += "Overall Percent Gain/Loss: " + percent_gain;
+                description += "Final Amount: " + formatter.format(final_amount) + "\n";
+                description += "Overall Percent Gain/Loss: " + parseFloat(percent_gain*100).toFixed(2)+"%";
 
                 console.log(final_amount);
                 console.log(dict);
@@ -53,10 +62,10 @@ function fetchStock() {
                 var description = "_______ is an intermediate investor and decides to invest his money whenever the stock price drops by 5%.\n\n";
                 
                 var initial_investment_2 = 12000;
-                description += "Starting Amount: " + initial_investment_2 + "\n";
+                description += "Starting Amount: " + formatter.format(initial_investment_2) + "\n";
 
                 var investment_amount = 1000;
-                description += "Invest Amount Every Drop: " + investment_amount + "\n";
+                description += "Invest Amount Every Drop: " + formatter.format(investment_amount) + "\n";
 
                 var amount_in_investments = 0;
                 var value = data['values'];
@@ -100,8 +109,8 @@ function fetchStock() {
 
                 percent_gain = ((final_amount - initial_investment_2) / initial_investment_2)
 
-                description += "Final Amount: " + final_amount + "\n";
-                description += "Overall Percent Gain/Loss: " + percent_gain;
+                description += "Final Amount: " + formatter.format(final_amount) + "\n";
+                description += "Overall Percent Gain/Loss: " + parseFloat(percent_gain*100).toFixed(2)+"%";
                 console.log(description);
 
                 console.log('-------------------------------------');
@@ -111,10 +120,10 @@ function fetchStock() {
 
                 var starting = 12000;
                 var initial_investment_3 = 12000;
-                description += "Starting Amount: " + initial_investment_3 + "\n";
+                description += "Starting Amount: " + formatter.format(initial_investment_3) + "\n";
 
                 var investment_amount = 1000;
-                description += "Dollar Cost Average Amount: " + investment_amount + "\n";
+                description += "Dollar Cost Average Amount: " + formatter.format(investment_amount) + "\n";
 
                 var amount_in_investments = 0;
                 var value = data['values'];
@@ -153,8 +162,8 @@ function fetchStock() {
 
                 percent_gain = ((final_amount - starting) / starting);
 
-                description += "Final Amount: " + final_amount + "\n";
-                description += "Overall Percent Gain/Loss: " + percent_gain;
+                description += "Final Amount: " + formatter.format(final_amount) + "\n";
+                description += "Overall Percent Gain/Loss: " + parseFloat(percent_gain*100).toFixed(2)+"%";
                 console.log(description);
 
                 console.log('-------------------------------------');
