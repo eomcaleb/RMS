@@ -1,82 +1,83 @@
 <html>
     <head>
-        <script src="https://unpkg.com/vue@3"></script>
-        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
         <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-        <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
+        <link rel="stylesheet" href="bootstrap.css" type="text/css" />
+        <link rel="stylesheet" href="style.css" type="text/css" />
     </head>
     <body>
-        <nav class="navbar navbar-expand-lg navbar-light bg-light p-3"> 
-            <a class="navbar-brand" href="#">RateMyStonks</a>
+        <nav class="navbar navbar-expand-lg navbar-light p-3" style="background-color: #1f2029;"> 
+            <j class="navbar-brand" href="#" style="color:#efefef; font-size: 18px;"><b>RateMyStocks <span style="color: green;">✓</span></b></a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
             </button>
         
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav mr-auto">
-                <li class="nav-item active">
-                <a class="nav-link" href="#">Home <span class="sr-only"></span></a>
-                </li>
-            </ul>
             </div>
         </nav>
 
         <div class="container-fluid">
             <div class="row h-100">
                 <div id="input" class="col-md-3 pt-3">
-                    <h2>Input</h2>
-                    <span>Ticker Symbol</span>
-                    <div class="input-group mb-1">
-                        <input id="ticker" type="text" class="form-control" placeholder="Ticker" value="GOOG" aria-label="sticker" aria-describedby="basic-addon2">
+                    <h5 style="color: #eaeaea">STOCK INFORMATION</h5>
+                    <hr style="height:2px; border-width:0; color:#efefef; background-color:#efefef">
+                    <span style="font-size: 16px;">Ticker Symbol</span>
+                    <div class="input-group mb-1 mt-2">
+                        <input style="font-size: 25px;font-weight:bold;padding-top: 18px;padding-bottom: 18px;" id="ticker" type="text" class="form-control" placeholder="Ticker" value="GOOG" aria-label="sticker" aria-describedby="basic-addon2">
+                    </div>
+                    <br />
+                    <span style="font-size: 16px;">Time Horizon</span>
+                    <div class="input-group mb-1 mt-2">
+                        <input style="font-size: 18px;font-weight:bold; text-align: center;padding-top: 18px;padding-bottom: 18px;" type="date" class="form-control" id="start" value="2022-01-01"/>
+                        <input style="font-size: 18px;font-weight:bold; text-align: center;padding-top: 18px;padding-bottom: 18px;vertical-align:bottom;" type="date" class="form-control" id="end" value="2022-06-09"/>
                     </div>
 
-                    <span>Time Horizon</span>
-                    
-                    <div class="input-group mb-1">
-                        <input type="date" class="form-control" id="start" value="2022-01-01"/>
-                        <input type="date" class="form-control" id="end" value="2022-06-09"/>
+                    <br />
+                    <br /> 
+
+                    <div class="row justify-content-center">
+                        <button type="button" id="Load" class="btn btn-lg" style="background-color:#bc7ff3; color:white;">INVEST</button>
                     </div>
 
-                    <button onclick="fetchStock()">Load Chart</button>
+                    <br/>
+                    <br/>
+                    <h5 style="color: #eaeaea">INVESTMENT STRATEGY</h5>
+                    <hr style="height:2px; border-width:0; color:#efefef; background-color:#efefef">
+                    <div class="form-check">
+                    <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios1" value="DCA" checked>
+                    <label class="form-check-label" for="exampleRadios1" style="font-size: 15px;">
+                        Dollar Cost Average
+                    </label>
+                    </div>
+                    <div class="form-check pt-2">
+                    <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios2" value="5PDIP">
+                    <label class="form-check-label" for="exampleRadios2" style="font-size: 15px;">
+                        Buy The 5% Dip
+                    </label>
+                    </div>
+                    <div class="form-check pt-2">
+                    <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios3" value="BUYANDHOLD">
+                    <label class="form-check-label" for="exampleRadios3" style="font-size: 15px;">
+                        Buy and Hold
+                    </label>
+                    </div>
 
-                    <span>Investor</span>
-                    
-                    <div class="form-check form-switch mb-1">
-                        <input class="form-check-input" type="checkbox" id="flexSwitchCheckDefault" checked>
-                        <label class="form-check-label" for="flexSwitchCheckDefault">Caleb</label>
-                    </div>
-                    <div class="form-check form-switch mb-1">
-                        <input class="form-check-input" type="checkbox" id="flexSwitchCheckChecked">
-                        <label class="form-check-label" for="flexSwitchCheckChecked">Sammy</label>
-                    </div>
-                    <div class="form-check form-switch mb-1">
-                        <input class="form-check-input" type="checkbox" id="flexSwitchCheckDisabled">
-                        <label class="form-check-label" for="flexSwitchCheckDisabled">Anna</label>
-                    </div>
-                    <div class="form-check form-switch mb-1">
-                        <input class="form-check-input" type="checkbox" id="flexSwitchCheckCheckedDisabled">
-                    <label class="form-check-label" for="flexSwitchCheckCheckedDisabled">Jessica</label>
-                    </div>
-                    
                     <div class="input-group pt-5">
-                        <h2>Summary</h2>
+                        <h5>Summary</h5>
                     </div>
+                    <hr style="height:3px; border-width:0; color:#efefef; background-color:#efefef">
 
-                    <span>Contents of the summary</span>
+                    <p id="summary">Contents of the summary</p>
 
                 </div>
 
                 <div id="chart" class="col-md-9 pt-3">
-                    <h2>Dashboard</h2>
+                    <p id="tickertitle">Stock Ticker</p>
                     <canvas id="myChart"></canvas>
                     <script type="text/javascript" src="chartloader.js"></script>
                     <script>
                     </script>
                 </div>
-
             </div>
-            
-
         </div>
     </body>
 </html>
