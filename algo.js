@@ -16,7 +16,11 @@ function fetchStock() {
         .then(
             function(data) {
                 // Strategy 1: Invest and Leave it there
+                var description = "_______ is a beginner investor and decides to invest his money and leave it.\n\n";
+
                 var initial_investment_1 = 12000;
+                description += "Starting Amount: " + initial_investment_1 + "\n";
+
                 var value = data['values'];
 
                 var dict = {}
@@ -30,18 +34,30 @@ function fetchStock() {
                 open_date = value[length]['datetime'];
 
                 dict[open_date] = open_price;
+                description += "He bought " + Object.keys(dict).length + " time(s). \n"
                 
 
                 stock_gain = end_price - open_price;
                 percent_gain = stock_gain / open_price;
 
                 final_amount = initial_investment_1 * (1 + percent_gain);
+
+                description += "Final Amount: " + final_amount + "\n";
+                description += "Overall Percent Gain/Loss: " + percent_gain;
+
                 console.log(final_amount);
                 console.log(dict);
+                console.log(description);
 
                 // Strategy 2: Invest 1,000 if stock drops by 5% previous
+                var description = "_______ is an intermediate investor and decides to invest his money whenever the stock price drops by 5%.\n\n";
+                
                 var initial_investment_2 = 12000;
+                description += "Starting Amount: " + initial_investment_2 + "\n";
+
                 var investment_amount = 1000;
+                description += "Invest Amount Every Drop: " + investment_amount + "\n";
+
                 var amount_in_investments = 0;
                 var value = data['values'];
 
@@ -69,6 +85,8 @@ function fetchStock() {
                 // today's
                 end_price = value[0]['close'];
 
+                description += "He bought " + Object.keys(buy_values).length + " time(s). \n"
+
                 // calculate how much we have earned on our investments
                 investment_gain = 0;
                 for (var key in buy_values) {
@@ -80,12 +98,24 @@ function fetchStock() {
                 console.log(final_amount);
                 console.log(buy_values);
 
+                percent_gain = ((final_amount - initial_investment_2) / initial_investment_2)
+
+                description += "Final Amount: " + final_amount + "\n";
+                description += "Overall Percent Gain/Loss: " + percent_gain;
+                console.log(description);
+
                 console.log('-------------------------------------');
 
                 // Strategy 3: Dollar Cost Averaging - Invest $1,000 every month
+                var description = "_______ is an intermediate investor and decides to dollar-cost-average his money.\n\n";
 
+                var starting = 12000;
                 var initial_investment_3 = 12000;
+                description += "Starting Amount: " + initial_investment_3 + "\n";
+
                 var investment_amount = 1000;
+                description += "Dollar Cost Average Amount: " + investment_amount + "\n";
+
                 var amount_in_investments = 0;
                 var value = data['values'];
 
@@ -108,6 +138,8 @@ function fetchStock() {
                 // today's
                 end_price = value[0]['close'];
 
+                description += "He bought " + Object.keys(buy_values).length + " time(s). \n"
+
                 // calculate how much we have earned on our investments
                 investment_gain = 0;
                 for (var key in buy_values) {
@@ -118,6 +150,12 @@ function fetchStock() {
                 final_amount = initial_investment_3 + amount_in_investments + investment_gain;
                 console.log(buy_values);
                 console.log(final_amount);
+
+                percent_gain = ((final_amount - starting) / starting);
+
+                description += "Final Amount: " + final_amount + "\n";
+                description += "Overall Percent Gain/Loss: " + percent_gain;
+                console.log(description);
 
                 console.log('-------------------------------------');
 
